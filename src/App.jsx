@@ -27,7 +27,7 @@ function GitHubPagesRedirect() {
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter basename="/pagoda">
+      <BrowserRouter basename="/vinhan">
         <GitHubPagesRedirect />
         <Routes>
           <Route path="/" element={<Layout />}>
