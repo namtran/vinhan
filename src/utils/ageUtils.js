@@ -68,7 +68,8 @@ export const BRANCH_NAMES = {
   'thieu_nam': 'Thiếu Nam',
   'thieu_nu': 'Thiếu Nữ',
   'thanh_nam': 'Thanh Nam',
-  'thanh_nu': 'Thanh Nữ'
+  'thanh_nu': 'Thanh Nữ',
+  'ban_huynh_truong': 'Ban Huynh Trưởng'
 };
 
 // Branch colors for display

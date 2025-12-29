@@ -46,6 +46,7 @@ const NGANH_OPTIONS = [
   { value: 'thieu_nu', label: 'Thiếu Nữ' },
   { value: 'thanh_nam', label: 'Thanh Nam' },
   { value: 'thanh_nu', label: 'Thanh Nữ' },
+  { value: 'ban_huynh_truong', label: 'Ban Huynh Trưởng' },
 ];
 
 const CHUC_VU_OPTIONS = [
