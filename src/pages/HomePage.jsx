@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Network, Users, FileText, Bell } from 'lucide-react';
+import { Network, FileText, Bell } from 'lucide-react';
 import { useCollection } from '../hooks/useFirestore';
 import { getMembersNeedingTransition, BRANCH_NAMES } from '../utils/ageUtils';
+import MemberDetailModal from '../components/OrgChart/MemberDetailModal';
+import gdptLogo from '../assets/logo-gdpt-viet-nam.png.webp';
 
 export default function HomePage() {
   const { documents: members, loading, error } = useCollection('members');
+  const [selectedMember, setSelectedMember] = useState(null);
 
   const membersNeedingTransition = getMembersNeedingTransition(members);
 
@@ -20,6 +24,7 @@ export default function HomePage() {
       <div className="hero bg-base-200 rounded-box py-12">
         <div className="hero-content text-center">
           <div>
+            <img src={gdptLogo} alt="Logo GĐPT Việt Nam" className="w-24 h-24 mx-auto mb-4" />
             <h1 className="text-4xl md:text-5xl font-bold">
               <span className="text-primary">Gia Đình Phật Tử</span> Vĩnh An
             </h1>
@@ -54,8 +59,8 @@ export default function HomePage() {
       ) : !error && (
         <div className="stats stats-vertical md:stats-horizontal shadow w-full">
           <div className="stat">
-            <div className="stat-figure text-primary">
-              <Users className="w-8 h-8" />
+            <div className="stat-figure">
+              <img src={gdptLogo} alt="GĐPT" className="w-12 h-12" />
             </div>
             <div className="stat-title">Tổng Đoàn Sinh</div>
             <div className="stat-value text-primary">{members.length}</div>
@@ -121,7 +126,7 @@ export default function HomePage() {
 
         <Link to="/members" className="card bg-base-200 hover:bg-base-300 transition-colors">
           <div className="card-body items-center text-center">
-            <Users className="w-12 h-12 text-secondary" />
+            <img src={gdptLogo} alt="GĐPT" className="w-12 h-12" />
             <h2 className="card-title">Danh Sách Đoàn Sinh</h2>
             <p className="opacity-70">Quản lý thông tin đoàn sinh</p>
           </div>
@@ -156,7 +161,11 @@ export default function HomePage() {
                 </thead>
                 <tbody>
                   {membersNeedingTransition.slice(0, 5).map(member => (
-                    <tr key={member.id}>
+                    <tr
+                      key={member.id}
+                      className="hover cursor-pointer"
+                      onClick={() => setSelectedMember(member)}
+                    >
                       <td>{member.hoTen}</td>
                       <td>{member.transition.age}</td>
                       <td>
@@ -184,6 +193,25 @@ export default function HomePage() {
           </div>
         </div>
       )}
+
+      {/* Member Detail Modal */}
+      <MemberDetailModal
+        member={selectedMember ? {
+          name: selectedMember.hoTen,
+          phapDanh: selectedMember.phapDanh,
+          photoUrl: selectedMember.photoUrl,
+          birthYear: selectedMember.birthYear,
+          phone: selectedMember.phone,
+          address: selectedMember.address,
+          capBac: selectedMember.capBac,
+          chucVu: selectedMember.chucVu,
+          nganhChinh: selectedMember.nganhChinh,
+          quaTrinhSinhHoat: selectedMember.quaTrinhSinhHoat,
+          role: BRANCH_NAMES[selectedMember.nganh] || selectedMember.nganh,
+        } : null}
+        isOpen={!!selectedMember}
+        onClose={() => setSelectedMember(null)}
+      />
     </div>
   );
 }

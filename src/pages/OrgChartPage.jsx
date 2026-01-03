@@ -85,27 +85,33 @@ export default function OrgChartPage() {
     branches: {
       thanh_nam: {
         doanTruong: getMemberById(savedData.doanTruongThanhNamId),
-        doanPho: getMemberById(savedData.doanPhoThanhNamId),
+        doanPho1: getMemberById(savedData.doanPho1ThanhNamId),
+        doanPho2: getMemberById(savedData.doanPho2ThanhNamId),
       },
       thanh_nu: {
         doanTruong: getMemberById(savedData.doanTruongThanhNuId),
-        doanPho: getMemberById(savedData.doanPhoThanhNuId),
+        doanPho1: getMemberById(savedData.doanPho1ThanhNuId),
+        doanPho2: getMemberById(savedData.doanPho2ThanhNuId),
       },
       thieu_nam: {
         doanTruong: getMemberById(savedData.doanTruongThieuNamId),
-        doanPho: getMemberById(savedData.doanPhoThieuNamId),
+        doanPho1: getMemberById(savedData.doanPho1ThieuNamId),
+        doanPho2: getMemberById(savedData.doanPho2ThieuNamId),
       },
       thieu_nu: {
         doanTruong: getMemberById(savedData.doanTruongThieuNuId),
-        doanPho: getMemberById(savedData.doanPhoThieuNuId),
+        doanPho1: getMemberById(savedData.doanPho1ThieuNuId),
+        doanPho2: getMemberById(savedData.doanPho2ThieuNuId),
       },
       oanh_nam: {
         doanTruong: getMemberById(savedData.doanTruongOanhNamId),
-        doanPho: getMemberById(savedData.doanPhoOanhNamId),
+        doanPho1: getMemberById(savedData.doanPho1OanhNamId),
+        doanPho2: getMemberById(savedData.doanPho2OanhNamId),
       },
       oanh_nu: {
         doanTruong: getMemberById(savedData.doanTruongOanhNuId),
-        doanPho: getMemberById(savedData.doanPhoOanhNuId),
+        doanPho1: getMemberById(savedData.doanPho1OanhNuId),
+        doanPho2: getMemberById(savedData.doanPho2OanhNuId),
       },
     },
   };
@@ -138,14 +144,14 @@ export default function OrgChartPage() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Sơ Đồ Tổ Chức GĐPT Vĩnh An</h1>
+      <div className="flex items-center justify-between gap-2">
+        <h1 className="text-lg md:text-2xl font-bold">Sơ Đồ Tổ Chức GĐPT Vĩnh An</h1>
         {isAdmin && (
           <button
-            className={`btn ${isEditing ? 'btn-success' : 'btn-outline'}`}
+            className={`btn btn-sm md:btn-md ${isEditing ? 'btn-success' : 'btn-outline'}`}
             onClick={() => isEditing ? handleSave() : setIsEditing(true)}
           >
-            {isEditing ? 'Lưu' : <><Settings className="w-4 h-4" /> Chỉnh Sửa</>}
+            {isEditing ? 'Lưu' : <><Settings className="w-4 h-4" /> <span className="hidden sm:inline">Chỉnh Sửa</span></>}
           </button>
         )}
       </div>
@@ -172,25 +178,31 @@ export default function OrgChartPage() {
                 <h4 className="font-semibold mb-2">Ngành Thanh</h4>
               </div>
               {renderPositionSelect('Đoàn Trưởng Thanh Nam', 'doanTruongThanhNamId')}
-              {renderPositionSelect('Đoàn Phó Thanh Nam', 'doanPhoThanhNamId')}
+              {renderPositionSelect('Đoàn Phó 1 Thanh Nam', 'doanPho1ThanhNamId')}
+              {renderPositionSelect('Đoàn Phó 2 Thanh Nam', 'doanPho2ThanhNamId')}
               {renderPositionSelect('Đoàn Trưởng Thanh Nữ', 'doanTruongThanhNuId')}
-              {renderPositionSelect('Đoàn Phó Thanh Nữ', 'doanPhoThanhNuId')}
+              {renderPositionSelect('Đoàn Phó 1 Thanh Nữ', 'doanPho1ThanhNuId')}
+              {renderPositionSelect('Đoàn Phó 2 Thanh Nữ', 'doanPho2ThanhNuId')}
 
               <div className="col-span-full mt-4">
                 <h4 className="font-semibold mb-2">Ngành Thiếu</h4>
               </div>
               {renderPositionSelect('Đoàn Trưởng Thiếu Nam', 'doanTruongThieuNamId')}
-              {renderPositionSelect('Đoàn Phó Thiếu Nam', 'doanPhoThieuNamId')}
+              {renderPositionSelect('Đoàn Phó 1 Thiếu Nam', 'doanPho1ThieuNamId')}
+              {renderPositionSelect('Đoàn Phó 2 Thiếu Nam', 'doanPho2ThieuNamId')}
               {renderPositionSelect('Đoàn Trưởng Thiếu Nữ', 'doanTruongThieuNuId')}
-              {renderPositionSelect('Đoàn Phó Thiếu Nữ', 'doanPhoThieuNuId')}
+              {renderPositionSelect('Đoàn Phó 1 Thiếu Nữ', 'doanPho1ThieuNuId')}
+              {renderPositionSelect('Đoàn Phó 2 Thiếu Nữ', 'doanPho2ThieuNuId')}
 
               <div className="col-span-full mt-4">
                 <h4 className="font-semibold mb-2">Ngành Oanh</h4>
               </div>
               {renderPositionSelect('Đoàn Trưởng Oanh Nam', 'doanTruongOanhNamId')}
-              {renderPositionSelect('Đoàn Phó Oanh Nam', 'doanPhoOanhNamId')}
+              {renderPositionSelect('Đoàn Phó 1 Oanh Nam', 'doanPho1OanhNamId')}
+              {renderPositionSelect('Đoàn Phó 2 Oanh Nam', 'doanPho2OanhNamId')}
               {renderPositionSelect('Đoàn Trưởng Oanh Nữ', 'doanTruongOanhNuId')}
-              {renderPositionSelect('Đoàn Phó Oanh Nữ', 'doanPhoOanhNuId')}
+              {renderPositionSelect('Đoàn Phó 1 Oanh Nữ', 'doanPho1OanhNuId')}
+              {renderPositionSelect('Đoàn Phó 2 Oanh Nữ', 'doanPho2OanhNuId')}
             </div>
 
             <div className="card-actions justify-end mt-4">
@@ -206,7 +218,7 @@ export default function OrgChartPage() {
       )}
 
       <div className="card bg-base-200">
-        <div className="card-body">
+        <div className="card-body p-2 md:p-8">
           <OrgChart
             organization={orgStructure}
             isAdmin={isAdmin}
@@ -231,7 +243,7 @@ export default function OrgChartPage() {
         onSuccess={() => setEditingMember(null)}
       />
 
-      <div className="text-center text-sm opacity-60">
+      <div className="text-center text-xs md:text-sm opacity-60 px-2">
         {isAdmin
           ? 'Nhấn vào ô để xem chi tiết hoặc phân công chức vụ'
           : 'Nhấn vào các ô để xem thông tin chi tiết'}

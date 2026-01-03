@@ -1,34 +1,37 @@
-import { User } from 'lucide-react';
+import lotusIcon from '../../assets/lotus.svg';
 
 export default function OrgNode({ node, onClick, isSelected }) {
+  // Peaceful, harmonious colors for Buddhist pagoda context
   const getRoleColor = (role) => {
     const colors = {
-      'gia_truong': 'bg-gradient-to-br from-amber-500 to-amber-600',
-      'lien_doan_truong': 'bg-gradient-to-br from-purple-500 to-purple-600',
-      'lien_doan_pho': 'bg-gradient-to-br from-indigo-500 to-indigo-600',
-      'thu_ky': 'bg-gradient-to-br from-blue-500 to-blue-600',
-      'thu_quy': 'bg-gradient-to-br from-emerald-500 to-emerald-600',
-      'doan_truong': 'bg-gradient-to-br from-cyan-500 to-cyan-600',
-      'doan_pho': 'bg-gradient-to-br from-teal-500 to-teal-600',
+      // Leadership - warm, gentle gold/brown tones
+      'gia_truong': 'bg-gradient-to-br from-amber-600/90 to-amber-700/90',
+      'lien_doan_truong': 'bg-gradient-to-br from-amber-500/85 to-amber-600/85',
+      'lien_doan_pho': 'bg-gradient-to-br from-stone-500/90 to-stone-600/90',
+      'thu_ky': 'bg-gradient-to-br from-stone-400/90 to-stone-500/90',
+      'thu_quy': 'bg-gradient-to-br from-stone-400/90 to-stone-500/90',
+      // Branch leaders - soft, calming earth tones
+      'doan_truong': 'bg-gradient-to-br from-emerald-600/80 to-emerald-700/80',
+      'doan_pho': 'bg-gradient-to-br from-teal-500/80 to-teal-600/80',
     };
-    return colors[role] || 'bg-gradient-to-br from-gray-500 to-gray-600';
+    return colors[role] || 'bg-gradient-to-br from-stone-400/80 to-stone-500/80';
   };
 
   return (
     <div
       className={`
         cursor-pointer transition-all duration-200
-        hover:scale-105 hover:shadow-lg
+        hover:scale-105 hover:shadow-lg inline-block
         ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''}
       `}
       onClick={() => onClick(node)}
     >
       <div className={`
         ${getRoleColor(node.roleCode)}
-        text-white rounded-lg p-3 min-w-[140px] shadow-md
+        text-white rounded-lg p-2 md:p-4 shadow-md w-[120px] md:w-[180px] min-h-[140px] md:min-h-[200px]
       `}>
-        <div className="flex flex-col items-center gap-2">
-          <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-1 md:gap-2 h-full">
+          <div className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
             {node.photoUrl ? (
               <img
                 src={node.photoUrl}
@@ -36,14 +39,14 @@ export default function OrgNode({ node, onClick, isSelected }) {
                 className="w-full h-full rounded-full object-cover"
               />
             ) : (
-              <User className="w-5 h-5" />
+              <img src={lotusIcon} alt="Hoa Sen" className="w-6 h-6 md:w-8 md:h-8" />
             )}
           </div>
           <div className="text-center">
-            <p className="font-semibold text-sm">{node.name || 'Chưa có'}</p>
-            <p className="text-xs opacity-80">{node.role}</p>
+            <p className="font-semibold text-xs md:text-sm leading-tight">{node.name || 'Chưa có'}</p>
+            <p className="text-[10px] md:text-xs opacity-90 mt-0.5 md:mt-1">{node.role}</p>
             {node.phapDanh && (
-              <p className="text-xs opacity-70 italic">{node.phapDanh}</p>
+              <p className="text-[10px] md:text-xs opacity-80 italic">{node.phapDanh}</p>
             )}
           </div>
         </div>

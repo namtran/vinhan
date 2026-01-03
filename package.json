@@ -1,5 +1,5 @@
 {
-  "name": "pagoda",
+  "name": "vinhan",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +11,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://namtran.github.io/pagoda",
+  "homepage": "https://namtran.github.io/vinhan",
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",
     "firebase": "^12.7.0",

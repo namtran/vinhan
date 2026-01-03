@@ -16,13 +16,20 @@ import {
   ChevronLeft,
   ChevronRight,
   ArrowUpDown,
+  Download,
+  FileSpreadsheet,
+  FileJson,
+  FileText,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../context/AuthContext';
 import { useCollection, deleteDocument } from '../../hooks/useFirestore';
 import { calculateAge, shouldTransitionBranch, BRANCH_NAMES } from '../../utils/ageUtils';
 import { seedDemoData } from '../../utils/seedData';
+import { exportToCSV, exportToJSON, exportToPDF } from '../../utils/exportData';
 import MemberForm from './MemberForm';
+import MemberDetailModal from '../OrgChart/MemberDetailModal';
+import { useDocument } from '../../hooks/useFirestore';
 
 const NGANH_CHINH_FILTER_OPTIONS = [
   { value: '', label: 'Tất cả Ngành' },
@@ -53,6 +60,7 @@ const NGANH_FILTER_OPTIONS = [
 export default function MemberList() {
   const { isAdmin } = useAuth();
   const { documents: members, loading } = useCollection('members', 'hoTen');
+  const { document: orgData } = useDocument('settings', 'organization');
 
   const [searchQuery, setSearchQuery] = useState('');
   const [nganhChinhFilter, setNganhChinhFilter] = useState('');
@@ -62,6 +70,7 @@ export default function MemberList() {
   const [editingMember, setEditingMember] = useState(null);
   const [sorting, setSorting] = useState([]);
   const [seeding, setSeeding] = useState(false);
+  const [selectedMember, setSelectedMember] = useState(null);
 
   // Filter members
   const filteredMembers = useMemo(() => {
@@ -90,7 +99,7 @@ export default function MemberList() {
 
     // Filter by age alerts
     if (showAlerts) {
-      result = result.filter(m => shouldTransitionBranch(m.birthYear, m.nganh));
+      result = result.filter(m => shouldTransitionBranch(m.birthYear, m.nganh, m.chucVu));
     }
 
     return result;
@@ -111,7 +120,7 @@ export default function MemberList() {
           </button>
         ),
         cell: ({ row }) => (
-          <div>
+          <div className="min-w-[120px]">
             <p className="font-medium">{row.original.hoTen}</p>
             {row.original.phapDanh && (
               <p className="text-sm opacity-70 italic">{row.original.phapDanh}</p>
@@ -121,7 +130,15 @@ export default function MemberList() {
       },
       {
         accessorKey: 'birthYear',
-        header: 'Năm Sinh',
+        header: ({ column }) => (
+          <button
+            className="flex items-center gap-1"
+            onClick={() => column.toggleSorting()}
+          >
+            Năm Sinh
+            <ArrowUpDown className="w-4 h-4" />
+          </button>
+        ),
         cell: ({ row }) => {
           const age = calculateAge(row.original.birthYear);
           return (
@@ -134,7 +151,15 @@ export default function MemberList() {
       },
       {
         accessorKey: 'nganhChinh',
-        header: 'Ngành',
+        header: ({ column }) => (
+          <button
+            className="flex items-center gap-1"
+            onClick={() => column.toggleSorting()}
+          >
+            Ngành
+            <ArrowUpDown className="w-4 h-4" />
+          </button>
+        ),
         cell: ({ row }) => {
           const nganhChinh = row.original.nganhChinh;
           return (
@@ -146,9 +171,17 @@ export default function MemberList() {
       },
       {
         accessorKey: 'nganh',
-        header: 'Đơn Vị',
+        header: ({ column }) => (
+          <button
+            className="flex items-center gap-1"
+            onClick={() => column.toggleSorting()}
+          >
+            Đơn Vị
+            <ArrowUpDown className="w-4 h-4" />
+          </button>
+        ),
         cell: ({ row }) => {
-          const transition = shouldTransitionBranch(row.original.birthYear, row.original.nganh);
+          const transition = shouldTransitionBranch(row.original.birthYear, row.original.nganh, row.original.chucVu);
           return (
             <div className="flex items-center gap-2">
               <span className="badge badge-outline">
@@ -165,7 +198,15 @@ export default function MemberList() {
       },
       {
         accessorKey: 'chucVu',
-        header: 'Chức Vụ',
+        header: ({ column }) => (
+          <button
+            className="flex items-center gap-1"
+            onClick={() => column.toggleSorting()}
+          >
+            Chức Vụ
+            <ArrowUpDown className="w-4 h-4" />
+          </button>
+        ),
         cell: ({ row }) => row.original.chucVu || '-',
       },
       {
@@ -255,7 +296,7 @@ export default function MemberList() {
   };
 
   // Count alerts
-  const alertCount = members.filter(m => shouldTransitionBranch(m.birthYear, m.nganh)).length;
+  const alertCount = members.filter(m => shouldTransitionBranch(m.birthYear, m.nganh, m.chucVu)).length;
 
   if (loading) {
     return (
@@ -334,6 +375,37 @@ export default function MemberList() {
                 )}
               </button>
             )}
+
+            {/* Export Dropdown */}
+            {members.length > 0 && (
+              <div className="dropdown dropdown-end">
+                <div tabIndex={0} role="button" className="btn btn-outline btn-success">
+                  <Download className="w-4 h-4" />
+                  Xuất Dữ Liệu
+                </div>
+                <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                  <li>
+                    <button onClick={() => exportToCSV(members, orgData)}>
+                      <FileSpreadsheet className="w-4 h-4" />
+                      Xuất CSV
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => exportToJSON(members, orgData)}>
+                      <FileJson className="w-4 h-4" />
+                      Xuất JSON
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => exportToPDF(members, orgData)}>
+                      <FileText className="w-4 h-4" />
+                      Xuất PDF
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            )}
+
             <button className="btn btn-primary" onClick={handleAdd}>
               <Plus className="w-4 h-4" />
               Thêm Thành Viên
@@ -355,13 +427,14 @@ export default function MemberList() {
       </div>
 
       {/* Table */}
+      <p className="text-xs text-center opacity-50 md:hidden mb-1">← Vuốt để xem thêm →</p>
       <div className="overflow-x-auto bg-base-100 rounded-lg shadow">
-        <table className="table table-zebra">
+        <table className="table table-zebra w-full" style={{ minWidth: '700px' }}>
           <thead>
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                  <th key={header.id}>
+                  <th key={header.id} className="whitespace-nowrap">
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}
@@ -379,9 +452,13 @@ export default function MemberList() {
               </tr>
             ) : (
               table.getRowModel().rows.map(row => (
-                <tr key={row.id} className="hover">
+                <tr
+                  key={row.id}
+                  className="hover cursor-pointer"
+                  onClick={() => setSelectedMember(row.original)}
+                >
                   {row.getVisibleCells().map(cell => (
-                    <td key={cell.id}>
+                    <td key={cell.id} className="whitespace-nowrap">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
@@ -420,6 +497,30 @@ export default function MemberList() {
         member={editingMember}
         isOpen={isFormOpen}
         onClose={handleFormClose}
+      />
+
+      {/* Member Detail Modal */}
+      <MemberDetailModal
+        member={selectedMember ? {
+          name: selectedMember.hoTen,
+          phapDanh: selectedMember.phapDanh,
+          photoUrl: selectedMember.photoUrl,
+          birthYear: selectedMember.birthYear,
+          phone: selectedMember.phone,
+          address: selectedMember.address,
+          capBac: selectedMember.capBac,
+          chucVu: selectedMember.chucVu,
+          nganhChinh: selectedMember.nganhChinh,
+          quaTrinhSinhHoat: selectedMember.quaTrinhSinhHoat,
+          role: BRANCH_NAMES[selectedMember.nganh] || selectedMember.nganh,
+        } : null}
+        isOpen={!!selectedMember}
+        onClose={() => setSelectedMember(null)}
+        isAdmin={isAdmin}
+        onEdit={() => {
+          setSelectedMember(null);
+          handleEdit(selectedMember);
+        }}
       />
     </div>
   );

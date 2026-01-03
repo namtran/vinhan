@@ -22,8 +22,47 @@ export function getBranchByAge(birthYear) {
   }
 }
 
+// Leadership roles that should not get age transition warnings
+const LEADERSHIP_ROLES = [
+  'đoàn trưởng',
+  'đoàn phó',
+  'doan truong',
+  'doan pho',
+  'đoàn phó 1',
+  'đoàn phó 2',
+  'doan pho 1',
+  'doan pho 2',
+  'doan_truong',
+  'doan_pho',
+  'doan_pho_1',
+  'doan_pho_2',
+];
+
+// Check if a member has a leadership role
+function isLeadershipRole(chucVu) {
+  if (!chucVu) return false;
+  const lowerChucVu = chucVu.toLowerCase().trim();
+  return LEADERSHIP_ROLES.some(role => lowerChucVu.includes(role));
+}
+
 // Check if a member should transition to a different branch
-export function shouldTransitionBranch(birthYear, currentBranch) {
+// Only applies warnings for Đoàn Sinh Ngành Oanh and Ngành Thiếu
+// Excludes members with leadership roles (Đoàn Trưởng, Đoàn Phó)
+export function shouldTransitionBranch(birthYear, currentBranch, chucVu = null) {
+  // Skip if member has a leadership role
+  if (isLeadershipRole(chucVu)) {
+    return null;
+  }
+
+  // Only apply warnings for Ngành Oanh and Ngành Thiếu đoàn sinh
+  const isOanh = currentBranch === 'oanh_nam' || currentBranch === 'oanh_nu';
+  const isThieu = currentBranch === 'thieu_nam' || currentBranch === 'thieu_nu';
+
+  // Skip if not Ngành Oanh or Ngành Thiếu
+  if (!isOanh && !isThieu) {
+    return null;
+  }
+
   const expectedBranch = getBranchByAge(birthYear);
 
   if (!currentBranch || currentBranch === expectedBranch.code) {
@@ -46,10 +85,12 @@ export function shouldTransitionBranch(birthYear, currentBranch) {
 }
 
 // Get all members who need to transition branches
+// Only applies for Đoàn Sinh Ngành Oanh and Ngành Thiếu
+// Excludes members with leadership roles
 export function getMembersNeedingTransition(members) {
   return members
     .map(member => {
-      const transition = shouldTransitionBranch(member.birthYear, member.nganh);
+      const transition = shouldTransitionBranch(member.birthYear, member.nganh, member.chucVu);
       if (transition) {
         return {
           ...member,
