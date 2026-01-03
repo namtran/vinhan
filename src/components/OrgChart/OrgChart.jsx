@@ -72,37 +72,37 @@ export default function OrgChart({ organization, isAdmin, onEditMember, onAssign
     <div className="overflow-x-auto py-4 md:py-8">
       <div className="flex flex-col items-center min-w-fit">
         {/* Ban Huynh Trưởng Group - Warm, gentle gold/brown */}
-        <div className="bg-amber-50/80 dark:bg-amber-900/20 rounded-xl p-3 md:p-6 border border-amber-200/60 dark:border-amber-700/30 shadow-sm">
-          <h3 className="text-lg md:text-2xl font-bold text-center mb-3 md:mb-6 text-amber-800/90 dark:text-amber-300/90">Ban Huynh Trưởng</h3>
+        <div className="bg-amber-50 dark:bg-amber-900 rounded-xl p-3 md:p-6 border border-amber-200 dark:border-amber-700 shadow-sm">
+          <h3 className="text-lg md:text-2xl font-bold text-center mb-3 md:mb-6 text-amber-800 dark:text-amber-300">Ban Huynh Trưởng</h3>
 
           {/* Gia Trưởng */}
           <div className="flex flex-col items-center">
             {renderMember(organization.giaTruong, 'Gia Trưởng', 'gia_truong', 'giaTruongId')}
-            <div className="w-0.5 h-2 md:h-4 bg-amber-400/60"></div>
+            <div className="w-0.5 h-2 md:h-4 bg-amber-300"></div>
           </div>
 
           {/* Liên Đoàn Trưởng */}
           <div className="flex flex-col items-center">
             {renderMember(organization.lienDoanTruong, 'Liên Đoàn Trưởng', 'lien_doan_truong', 'lienDoanTruongId')}
-            <div className="w-0.5 h-2 md:h-4 bg-amber-400/60"></div>
+            <div className="w-0.5 h-2 md:h-4 bg-amber-300"></div>
           </div>
 
           {/* Liên Đoàn Phó, Thư Ký, Thủ Quỹ with proper tree connector */}
           <div className="relative">
             {/* Horizontal line spanning all 3 boxes */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] md:w-[calc(100%-80px)] h-0.5 bg-amber-400/60"></div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] md:w-[calc(100%-80px)] h-0.5 bg-amber-300"></div>
 
             <div className="flex flex-row justify-center gap-1 md:gap-8 pt-0">
               <div className="flex flex-col items-center">
-                <div className="w-0.5 h-2 md:h-4 bg-amber-400/60"></div>
+                <div className="w-0.5 h-2 md:h-4 bg-amber-300"></div>
                 {renderMember(organization.lienDoanPho, 'Liên Đoàn Phó', 'lien_doan_pho', 'lienDoanPhoId')}
               </div>
               <div className="flex flex-col items-center">
-                <div className="w-0.5 h-2 md:h-4 bg-amber-400/60"></div>
+                <div className="w-0.5 h-2 md:h-4 bg-amber-300"></div>
                 {renderMember(organization.thuKy, 'Thư Ký', 'thu_ky', 'thuKyId')}
               </div>
               <div className="flex flex-col items-center">
-                <div className="w-0.5 h-2 md:h-4 bg-amber-400/60"></div>
+                <div className="w-0.5 h-2 md:h-4 bg-amber-300"></div>
                 {renderMember(organization.thuQuy, 'Thủ Quỹ', 'thu_quy', 'thuQuyId')}
               </div>
             </div>
@@ -110,24 +110,24 @@ export default function OrgChart({ organization, isAdmin, onEditMember, onAssign
         </div>
 
         {/* Connector line */}
-        <div className="w-0.5 h-4 md:h-6 bg-stone-300/60"></div>
+        <div className="w-0.5 h-4 md:h-6 bg-stone-300"></div>
 
         {/* Ngành Thanh - Soft sage green */}
-        <div className="bg-emerald-50/70 dark:bg-emerald-900/15 rounded-xl p-3 md:p-6 border border-emerald-200/50 dark:border-emerald-700/25 shadow-sm">
-          <h3 className="text-lg md:text-2xl font-bold text-center mb-2 md:mb-4 text-emerald-700/90 dark:text-emerald-300/90">Ngành Thanh</h3>
+        <div className="bg-emerald-50 dark:bg-emerald-900 rounded-xl p-3 md:p-6 border border-emerald-200 dark:border-emerald-700 shadow-sm">
+          <h3 className="text-lg md:text-2xl font-bold text-center mb-2 md:mb-4 text-emerald-700 dark:text-emerald-300">Ngành Thanh</h3>
           <div className="flex flex-col items-center">
-            <div className="w-0.5 h-2 md:h-4 bg-emerald-400/50"></div>
+            <div className="w-0.5 h-2 md:h-4 bg-emerald-300"></div>
             <div className="relative w-full">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[calc(100%-60px)] md:w-[calc(100%-100px)] h-0.5 bg-emerald-400/50"></div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[calc(100%-60px)] md:w-[calc(100%-100px)] h-0.5 bg-emerald-300"></div>
               <div className="flex flex-row gap-2 md:gap-8 justify-center">
                 <div className="flex flex-col items-center">
-                  <div className="w-0.5 h-2 md:h-4 bg-emerald-400/50"></div>
-                  <p className="text-xs md:text-base font-semibold mb-1 md:mb-2 text-emerald-700/70 dark:text-emerald-300/70">Thanh Nam</p>
+                  <div className="w-0.5 h-2 md:h-4 bg-emerald-300"></div>
+                  <p className="text-xs md:text-base font-semibold mb-1 md:mb-2 text-emerald-600 dark:text-emerald-300">Thanh Nam</p>
                   {renderBranchGroup('thanh_nam')}
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="w-0.5 h-2 md:h-4 bg-emerald-400/50"></div>
-                  <p className="text-xs md:text-base font-semibold mb-1 md:mb-2 text-emerald-700/70 dark:text-emerald-300/70">Thanh Nữ</p>
+                  <div className="w-0.5 h-2 md:h-4 bg-emerald-300"></div>
+                  <p className="text-xs md:text-base font-semibold mb-1 md:mb-2 text-emerald-600 dark:text-emerald-300">Thanh Nữ</p>
                   {renderBranchGroup('thanh_nu')}
                 </div>
               </div>
@@ -136,24 +136,24 @@ export default function OrgChart({ organization, isAdmin, onEditMember, onAssign
         </div>
 
         {/* Connector line */}
-        <div className="w-0.5 h-4 md:h-6 bg-stone-300/60"></div>
+        <div className="w-0.5 h-4 md:h-6 bg-stone-300"></div>
 
         {/* Ngành Thiếu - Soft teal/cyan */}
-        <div className="bg-teal-50/70 dark:bg-teal-900/15 rounded-xl p-3 md:p-6 border border-teal-200/50 dark:border-teal-700/25 shadow-sm">
-          <h3 className="text-lg md:text-2xl font-bold text-center mb-2 md:mb-4 text-teal-700/90 dark:text-teal-300/90">Ngành Thiếu</h3>
+        <div className="bg-teal-50 dark:bg-teal-900 rounded-xl p-3 md:p-6 border border-teal-200 dark:border-teal-700 shadow-sm">
+          <h3 className="text-lg md:text-2xl font-bold text-center mb-2 md:mb-4 text-teal-700 dark:text-teal-300">Ngành Thiếu</h3>
           <div className="flex flex-col items-center">
-            <div className="w-0.5 h-2 md:h-4 bg-teal-400/50"></div>
+            <div className="w-0.5 h-2 md:h-4 bg-teal-300"></div>
             <div className="relative w-full">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[calc(100%-60px)] md:w-[calc(100%-100px)] h-0.5 bg-teal-400/50"></div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[calc(100%-60px)] md:w-[calc(100%-100px)] h-0.5 bg-teal-300"></div>
               <div className="flex flex-row gap-2 md:gap-8 justify-center">
                 <div className="flex flex-col items-center">
-                  <div className="w-0.5 h-2 md:h-4 bg-teal-400/50"></div>
-                  <p className="text-xs md:text-base font-semibold mb-1 md:mb-2 text-teal-700/70 dark:text-teal-300/70">Thiếu Nam</p>
+                  <div className="w-0.5 h-2 md:h-4 bg-teal-300"></div>
+                  <p className="text-xs md:text-base font-semibold mb-1 md:mb-2 text-teal-600 dark:text-teal-300">Thiếu Nam</p>
                   {renderBranchGroup('thieu_nam')}
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="w-0.5 h-2 md:h-4 bg-teal-400/50"></div>
-                  <p className="text-xs md:text-base font-semibold mb-1 md:mb-2 text-teal-700/70 dark:text-teal-300/70">Thiếu Nữ</p>
+                  <div className="w-0.5 h-2 md:h-4 bg-teal-300"></div>
+                  <p className="text-xs md:text-base font-semibold mb-1 md:mb-2 text-teal-600 dark:text-teal-300">Thiếu Nữ</p>
                   {renderBranchGroup('thieu_nu')}
                 </div>
               </div>
@@ -162,24 +162,24 @@ export default function OrgChart({ organization, isAdmin, onEditMember, onAssign
         </div>
 
         {/* Connector line */}
-        <div className="w-0.5 h-4 md:h-6 bg-stone-300/60"></div>
+        <div className="w-0.5 h-4 md:h-6 bg-stone-300"></div>
 
         {/* Ngành Oanh - Soft warm rose/coral */}
-        <div className="bg-rose-50/60 dark:bg-rose-900/15 rounded-xl p-3 md:p-6 border border-rose-200/50 dark:border-rose-700/25 shadow-sm">
-          <h3 className="text-lg md:text-2xl font-bold text-center mb-2 md:mb-4 text-rose-700/90 dark:text-rose-300/90">Ngành Oanh</h3>
+        <div className="bg-rose-50 dark:bg-rose-900 rounded-xl p-3 md:p-6 border border-rose-200 dark:border-rose-700 shadow-sm">
+          <h3 className="text-lg md:text-2xl font-bold text-center mb-2 md:mb-4 text-rose-700 dark:text-rose-300">Ngành Oanh</h3>
           <div className="flex flex-col items-center">
-            <div className="w-0.5 h-2 md:h-4 bg-rose-300/50"></div>
+            <div className="w-0.5 h-2 md:h-4 bg-rose-300"></div>
             <div className="relative w-full">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[calc(100%-60px)] md:w-[calc(100%-100px)] h-0.5 bg-rose-300/50"></div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[calc(100%-60px)] md:w-[calc(100%-100px)] h-0.5 bg-rose-300"></div>
               <div className="flex flex-row gap-2 md:gap-8 justify-center">
                 <div className="flex flex-col items-center">
-                  <div className="w-0.5 h-2 md:h-4 bg-rose-300/50"></div>
-                  <p className="text-xs md:text-base font-semibold mb-1 md:mb-2 text-rose-700/70 dark:text-rose-300/70">Oanh Nam</p>
+                  <div className="w-0.5 h-2 md:h-4 bg-rose-300"></div>
+                  <p className="text-xs md:text-base font-semibold mb-1 md:mb-2 text-rose-600 dark:text-rose-300">Oanh Nam</p>
                   {renderBranchGroup('oanh_nam')}
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="w-0.5 h-2 md:h-4 bg-rose-300/50"></div>
-                  <p className="text-xs md:text-base font-semibold mb-1 md:mb-2 text-rose-700/70 dark:text-rose-300/70">Oanh Nữ</p>
+                  <div className="w-0.5 h-2 md:h-4 bg-rose-300"></div>
+                  <p className="text-xs md:text-base font-semibold mb-1 md:mb-2 text-rose-600 dark:text-rose-300">Oanh Nữ</p>
                   {renderBranchGroup('oanh_nu')}
                 </div>
               </div>

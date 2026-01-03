@@ -2,19 +2,20 @@ import lotusIcon from '../../assets/lotus.svg';
 
 export default function OrgNode({ node, onClick, isSelected }) {
   // Peaceful, harmonious colors for Buddhist pagoda context
+  // Using solid colors for Safari compatibility (no opacity modifiers)
   const getRoleColor = (role) => {
     const colors = {
       // Leadership - warm, gentle gold/brown tones
-      'gia_truong': 'bg-gradient-to-br from-amber-600/90 to-amber-700/90',
-      'lien_doan_truong': 'bg-gradient-to-br from-amber-500/85 to-amber-600/85',
-      'lien_doan_pho': 'bg-gradient-to-br from-stone-500/90 to-stone-600/90',
-      'thu_ky': 'bg-gradient-to-br from-stone-400/90 to-stone-500/90',
-      'thu_quy': 'bg-gradient-to-br from-stone-400/90 to-stone-500/90',
+      'gia_truong': 'bg-gradient-to-br from-amber-600 to-amber-700',
+      'lien_doan_truong': 'bg-gradient-to-br from-amber-500 to-amber-600',
+      'lien_doan_pho': 'bg-gradient-to-br from-stone-500 to-stone-600',
+      'thu_ky': 'bg-gradient-to-br from-stone-400 to-stone-500',
+      'thu_quy': 'bg-gradient-to-br from-stone-400 to-stone-500',
       // Branch leaders - soft, calming earth tones
-      'doan_truong': 'bg-gradient-to-br from-emerald-600/80 to-emerald-700/80',
-      'doan_pho': 'bg-gradient-to-br from-teal-500/80 to-teal-600/80',
+      'doan_truong': 'bg-gradient-to-br from-emerald-600 to-emerald-700',
+      'doan_pho': 'bg-gradient-to-br from-teal-500 to-teal-600',
     };
-    return colors[role] || 'bg-gradient-to-br from-stone-400/80 to-stone-500/80';
+    return colors[role] || 'bg-gradient-to-br from-stone-400 to-stone-500';
   };
 
   return (
